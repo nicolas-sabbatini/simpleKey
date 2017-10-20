@@ -18,8 +18,31 @@ DESCRIPTION
         The library is aimed to be used in small proyects.
     
 MOTIVATIONS
-        There is a lot of 
+        There is a lot of input libraris for Love2d, but all of them are big
+        and complex, and can be a litel over kill use a library that can handel 
+        joystick and tuch scren for a small proyect, so i made this.
 
+USAGE
+        key = require('simpleKey')
+
+        function love.load()
+            key:keyInit({'space'})
+        end
+
+        function love.update(dt)
+            key:updateInput()
+            if key:isDown('space') then print('space dawn')
+            if key:isReleased('space') then print('space jus got relised') end
+        end
+
+API
+        keyInit()
+        keyBind()
+        keyUnbind()
+        updateInput()
+        check()
+        isDown()
+        isReleased()
 
 DEPENDENCIES
         Love2D
@@ -51,15 +74,28 @@ end
 -- Bind keys
 function simpleKey:keyBind(keys)
     if type(keys)=="table" then
-        -- If the keys are a table replace the previus keys
-        key.keysPressed = {}
         for _, k in pairs(keys) do
-            key.keysPressed[k] = false
-            key.keysReleased[k] = false
+            table.insert(key.keysPressed, k, false)
+            table.insert(key.keysReleased, k, false)
         end
     else
         -- Else add the key intro the keys to check
         table.insert(key.keysPressed, keys, false)
+        table.insert(key.keysReleased, keys, false)
+    end
+end
+
+-- Unbind keys
+function simpleKey:keyUnbind(keys)
+    if type(keys)=="table" then
+        for _, k in pairs(keys) do
+            table.remove(key.keysPressed, keys)
+            table.remove(key.keysReleased, keys)
+        end
+    else
+        -- Else add the key intro the keys to check
+        table.remove(key.keysPressed, keys, false)
+        table.remove(key.keysReleased, keys, false)
     end
 end
 
@@ -72,10 +108,12 @@ function simpleKey:updateInput()
     end
 end
 
+-- Check if a key is dawn
 function simpleKey:isDown(k)
     return key.keysPressed[k]
 end
 
+-- Check if a key just get released
 function simpleKey:isReleased(k)
     return key.keysReleased[k]
 end
