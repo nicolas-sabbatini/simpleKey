@@ -1,4 +1,38 @@
-local simpleKey = {}
+--[[
+LUA MODULE
+        Simple Key v$(_VERSION)
+
+AUTHOR 
+        Nicolas C. Sabbatini V.
+
+LICENSE
+        MIT License - Copyright (c) 2017
+
+HOME PAGE
+        https://github.com/NicolasSabba/simpleKey
+
+DESCRIPTION
+        Simple Key is a simple yet awesome input library for Love2d.
+        The objective of this library is to make the keyboard input handle
+        easy in a small and compact way.
+        The library is aimed to be used in small proyects.
+    
+MOTIVATIONS
+        There is a lot of 
+
+
+DEPENDENCIES
+        Love2D
+
+
+
+]]--
+
+local simpleKey = {
+    _LICENSE     = "MIT License - Copyright (c) 2017",
+    _URL         = "https://github.com/NicolasSabba/simpleKey",
+    _VERSION     = "0.01"
+}
 
 local key = {}
 
