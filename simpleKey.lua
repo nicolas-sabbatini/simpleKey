@@ -75,13 +75,13 @@ function simpleKey:keyBind(keys)
     if type(keys)=="table" then
         -- If the keys are a table add all of them to check
         for _, k in pairs(keys) do
-            table.insert(key.keysPressed, k, false)
-            table.insert(key.keysReleased, k, false)
+            key.keysPressed[k] = false
+            key.keysReleased[k] =false
         end
     else
         -- Else add the key intro the keys to check
-        table.insert(key.keysPressed, keys, false)
-        table.insert(key.keysReleased, keys, false)
+        key.keysPressed[keys] = false
+        key.keysReleased[keys] = false
     end
 end
 
@@ -90,13 +90,13 @@ function simpleKey:keyUnbind(keys)
     if type(keys)=="table" then
         -- If the keys are a table remove all of them
         for _, k in pairs(keys) do
-            table.remove(key.keysPressed, keys)
-            table.remove(key.keysReleased, keys)
+            key.keysPressed[k] = nil
+            key.keysReleased[k] = nil
         end
     else
         -- Else remove the key of the keys to check
-        table.remove(key.keysPressed, keys, false)
-        table.remove(key.keysReleased, keys, false)
+        key.keysPressed[keys] = nil
+        key.keysReleased[keys] = nil
     end
 end
 
