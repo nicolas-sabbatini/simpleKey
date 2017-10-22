@@ -15,35 +15,34 @@ DESCRIPTION
         Simple Key is a simple yet awesome input library for Love2d.
         The objective of this library is to make the keyboard input handle
         easy in a small and compact way.
-        The library is aimed to be used in small proyects.
+        The library is aimed to be used in small projects.
     
 MOTIVATIONS
-        There is a lot of input libraris for Love2d, but all of them are big
-        and complex, and can be a litel over kill use a library that can handel 
-        joystick and tuch scren for a small proyect, so i made this.
+        There is a lot of input libraries for Love2d, but all of them are big
+        and complex, and can be a little over kill use a library that can handel 
+        joystick and touch screen for a small project, so I made this.
 
 USAGE
         key = require('simpleKey')
-
+        
         function love.load()
             key:keyInit({'space'})
         end
-
+        
         function love.update(dt)
             key:updateInput()
-            if key:isDown('space') then print('space dawn')
-            if key:isReleased('space') then print('space jus got relised') end
+            if key:isDown('space') then print('space dawn') end
+            if key:isReleased('space') then print('space got relised') end
         end
 
 API
-        TODO -- Descriptions --
-        keyInit()
-        keyBind()
-        keyUnbind()
-        updateInput()
-        check()
-        isDown()
-        isReleased()
+        keyInit() -> Init all variables.
+        keyBind() -> Bind a key or a table of keys.
+        keyUnbind() -> Unbind a key or a table of keys.
+        updateInput() -> Update the state of all bound keys.
+        isDown() -> Return true if a bound key is down.
+        isReleased() -> Return true if a bound key relesed in this frame.
+        checkDown() -> Check if a key is dawn, this key don't need to be bound.
 
 DEPENDENCIES
         Love2D
@@ -58,7 +57,7 @@ local simpleKey = {
 
 local key = {}
 
--- Key handeling Init
+-- Init all variables.
 function simpleKey:keyInit(keys)
     keys = keys or {}
     key.keysPressed = {}
@@ -66,11 +65,12 @@ function simpleKey:keyInit(keys)
     simpleKey:keyBind(keys)
 end
 
-function simpleKey:check(key)
+-- Check if a key is dawn, this key don't need to be bound.
+function simpleKey:checkDown(key)
     return love.keyboard.isDown(key)
 end
 
--- Bind keys
+-- Bind a key or a table of keys.
 function simpleKey:keyBind(keys)
     if type(keys)=="table" then
         -- If the keys are a table add all of them to check
@@ -85,7 +85,7 @@ function simpleKey:keyBind(keys)
     end
 end
 
--- Unbind keys
+-- Unbind a key or a table of keys.
 function simpleKey:keyUnbind(keys)
     if type(keys)=="table" then
         -- If the keys are a table remove all of them
@@ -100,7 +100,7 @@ function simpleKey:keyUnbind(keys)
     end
 end
 
--- Update the keys values
+-- Update the state of all bound keys.
 function simpleKey:updateInput()
     for k, value in pairs(key.keysPressed) do
         local previus = value
@@ -109,12 +109,12 @@ function simpleKey:updateInput()
     end
 end
 
--- Check if a key is dawn
+-- Return true if a bound key is down.
 function simpleKey:isDown(k)
     return key.keysPressed[k]
 end
 
--- Check if a key just get released
+-- Return true if a bound key relesed in this frame.
 function simpleKey:isReleased(k)
     return key.keysReleased[k]
 end
