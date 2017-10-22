@@ -1,4 +1,4 @@
-# simpleKey
+# Simple Key
 
 > Disclaimer: English is not my first language and I never took a English class, fell free to correct any error o misspelling.
 
