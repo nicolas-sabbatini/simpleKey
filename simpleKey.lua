@@ -104,7 +104,7 @@ end
 function simpleKey:updateInput()
     for k, value in pairs(key.keysPressed) do
         local previus = value
-        key.keysPressed[k] = simpleKey:check(k)
+        key.keysPressed[k] = simpleKey:checkDown(k)
         key.keysReleased[k] = previus and (not key.keysPressed[k])
     end
 end
