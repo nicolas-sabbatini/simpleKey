@@ -13,9 +13,10 @@ end
 function colorF(k)
 
     if key:isDown(k) == nil then return {0,0,0}
-    elseif key:isDown(k) then return {0,255,0}
-    elseif key:isReleased(k) then return {0,0,255}
-    else return {255,0,0} end
+    elseif key:isDown(k) then return {0,1,0}
+    elseif key:isReleased(k) then return {0,0,1}
+    elseif key:justPressed(k) then return {1,1,1}
+    else return {1,0,0} end
 
 end
 
