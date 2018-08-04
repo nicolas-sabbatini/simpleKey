@@ -21,6 +21,7 @@ end
 
 function love.update(dt)
     key:updateInput()
+    if key:justPressed('space') then print('space just pressed') end
     if key:isDown('space') then print('space dawn') end
     if key:isReleased('space') then print('space got relised') end
 end
@@ -31,6 +32,7 @@ end
         keyBind() -- Bind a key or a table of keys.
         keyUnbind() -- Unbind a key or a table of keys.
         updateInput() -- Update the state of all bound keys.
+        justPressed() -- Return true on the first frame that a bound key is down.
         isDown() -- Return true if a bound key is down.
         isReleased() -- Return true if a bound key relesed in this frame.
         checkDown() -- Check if a key is dawn, this key don't need to be bound.
