@@ -40,6 +40,8 @@ API
         keyBind() -> Bind a key or a table of keys.
         keyUnbind() -> Unbind a key or a table of keys.
         updateInput() -> Update the state of all bound keys.
+        justPressed() -> Return true on the first frame that 
+                         a bound key is down.
         isDown() -> Return true if a bound key is down.
         isReleased() -> Return true if a bound key relesed in this frame.
         checkDown() -> Check if a key is dawn, this key don't need to be bound.
@@ -52,7 +54,7 @@ DEPENDENCIES
 local simpleKey = {
     _LICENSE     = "MIT License - Copyright (c) 2017",
     _URL         = "https://github.com/NicolasSabba/simpleKey",
-    _VERSION     = "0.01"
+    _VERSION     = "0.02"
 }
 
 local key = {}
@@ -61,7 +63,8 @@ local key = {}
 function simpleKey:keyInit(keys)
     keys = keys or {}
     key.keysPressed = {}
-    key.keysReleased ={}
+    key.keysReleased = {}
+    key.keysJustPressed = {}
     simpleKey:keyBind(keys)
 end
 
@@ -75,13 +78,15 @@ function simpleKey:keyBind(keys)
     if type(keys)=="table" then
         -- If the keys are a table add all of them to check
         for _, k in pairs(keys) do
-            key.keysPressed[k] = false
-            key.keysReleased[k] =false
+            key.keysPressed[k]     = false
+            key.keysReleased[k]    = false
+            key.keysJustPressed[k] = false
         end
     else
         -- Else add the key intro the keys to check
-        key.keysPressed[keys] = false
-        key.keysReleased[keys] = false
+        key.keysPressed[keys]     = false
+        key.keysReleased[keys]    = false
+        key.keysJustPressed[keys] = false
     end
 end
 
@@ -90,13 +95,15 @@ function simpleKey:keyUnbind(keys)
     if type(keys)=="table" then
         -- If the keys are a table remove all of them
         for _, k in pairs(keys) do
-            key.keysPressed[k] = nil
-            key.keysReleased[k] = nil
+            key.keysPressed[k]     = nil
+            key.keysReleased[k]    = nil
+            key.keysJustPressed[k] = nil
         end
     else
         -- Else remove the key of the keys to check
-        key.keysPressed[keys] = nil
-        key.keysReleased[keys] = nil
+        key.keysPressed[keys]     = nil
+        key.keysReleased[keys]    = nil
+        key.keysJustPressed[keys] = nil
     end
 end
 
@@ -104,9 +111,15 @@ end
 function simpleKey:updateInput()
     for k, value in pairs(key.keysPressed) do
         local previus = value
-        key.keysPressed[k] = simpleKey:checkDown(k)
-        key.keysReleased[k] = previus and (not key.keysPressed[k])
+        key.keysPressed[k]     = simpleKey:checkDown(k)
+        key.keysReleased[k]    = previus and (not key.keysPressed[k])
+        key.keysJustPressed[k] = (not previus) and key.keysPressed[k]
     end
+end
+
+-- Return true on the first frame that a bound key is down.
+function simpleKey:justPressed(k)
+    return key.keysJustPressed[k]
 end
 
 -- Return true if a bound key is down.
