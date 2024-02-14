@@ -1,5 +1,11 @@
 # Simple Key
 
+## WARNING
+
+This library is deprecated, I recommend you to use the simple keyboard library instead.
+
+The simple keyboard library can be found [here](https://github.com/nicolas-sabbatini/lovely-tools).
+
 ## Description
 
 Simple Key is a simple yet awesome input library for Love2d.
@@ -83,4 +89,3 @@ instance:isDown(k)
 -- @_return_ `down` — True if the key is released, false if not.
 instance:justReleased(k)
 ```
-
